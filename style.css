@@ -20,6 +20,7 @@ body, html {
   display: none;
   overflow-y: auto;
   padding: 20px;
+  background-color: #222;
 }
 
 .page.active {
@@ -44,10 +45,19 @@ canvas {
 .arrow {
   position: absolute;
   top: 50%;
-  right: 20px;
+  transform: translateY(-50%);
   font-size: 36px;
   cursor: pointer;
-  z-index: 1;
+  z-index: 2;
+  user-select: none;
+}
+
+.arrow.right {
+  right: 20px;
+}
+
+.arrow.left {
+  left: 20px;
 }
 
 .gallery img {
@@ -66,4 +76,11 @@ canvas {
 .info h2, .info h3 {
   margin-top: 40px;
   font-size: 24px;
+}
+
+.info ul {
+  margin-top: 10px;
+  margin-bottom: 30px;
+  padding-left: 20px;
+  line-height: 1.6;
 }
