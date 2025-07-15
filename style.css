@@ -47,6 +47,7 @@ canvas {
   top: 50%;
   transform: translateY(-50%);
   font-size: 36px;
+  font-family: sans-serif;
   cursor: pointer;
   z-index: 2;
   user-select: none;
@@ -60,11 +61,50 @@ canvas {
   left: 20px;
 }
 
-.gallery img {
+.gallery {
+  position: relative;
   width: 100%;
-  max-width: 600px;
-  display: block;
-  margin: 20px auto;
+  height: 100%;
+}
+
+.gallery img {
+  position: absolute;
+  width: 25%;
+  height: auto;
+  object-fit: cover;
+  transition: transform 0.3s ease, left 0.5s, top 0.5s;
+  cursor: pointer;
+}
+
+.gallery img:hover {
+  transform: scale(1.1);
+  z-index: 5;
+}
+
+.gallery img.focused {
+  transform: translate(-50%, -50%) scale(2);
+  left: 50% !important;
+  top: 50% !important;
+  z-index: 10;
+}
+
+.shuffle-button {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: transparent;
+  color: white;
+  border: 1px solid white;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  z-index: 5;
+  transition: background 0.3s;
+}
+
+.shuffle-button:hover {
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .info {
