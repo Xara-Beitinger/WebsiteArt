@@ -1,0 +1,42 @@
+body {
+  font-family: sans-serif;
+  background-color: #fdfdfd;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.about-section {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.about-text {
+  flex: 1;
+  min-width: 250px;
+}
+
+.about-image img {
+  max-width: 300px;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.image-below {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.image-below img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
