@@ -1,42 +1,69 @@
-body {
-  font-family: sans-serif;
-  background-color: #fdfdfd;
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
-.container {
-  max-width: 1000px;
+body, html {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #222;
+  color: white;
+  font-family: sans-serif;
+}
+
+.page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: none;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.page.active {
+  display: block;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+.logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 32px;
+  z-index: 1;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  font-size: 36px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.gallery img {
+  width: 100%;
+  max-width: 600px;
+  display: block;
+  margin: 20px auto;
+}
+
+.info {
+  max-width: 800px;
   margin: 0 auto;
   padding: 40px 20px;
 }
 
-.about-section {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  gap: 20px;
-}
-
-.about-text {
-  flex: 1;
-  min-width: 250px;
-}
-
-.about-image img {
-  max-width: 300px;
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-}
-
-.image-below {
+.info h2, .info h3 {
   margin-top: 40px;
-  text-align: center;
-}
-
-.image-below img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
+  font-size: 24px;
 }
