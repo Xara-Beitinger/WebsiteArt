@@ -6,45 +6,63 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Seite 1: Interaktives Malen -->
   <div id="page1" class="page active">
     <canvas id="drawCanvas"></canvas>
     <h1 class="logo">arax art</h1>
-    <div class="arrow" onclick="showPage(2)">➤</div>
+    <div class="arrow right" onclick="showPage(2)">➤</div>
   </div>
 
+  <!-- Seite 2: Galerie -->
   <div id="page2" class="page">
     <div class="gallery">
-      <!-- Bildergalerie -->
       <img src="bilder/bild1.jpg" alt="">
       <img src="bilder/bild2.jpg" alt="">
-      <!-- weitere Bilder hier -->
+      <!-- weitere Bilder -->
     </div>
-    <div class="arrow" onclick="showPage(3)">➤</div>
+    <div class="arrow left" onclick="showPage(1)">←</div>
+    <div class="arrow right" onclick="showPage(3)">➤</div>
   </div>
 
+  <!-- Seite 3: Info -->
   <div id="page3" class="page">
     <div class="info">
       <h2>Über Xara</h2>
-      <p>Xara Sheherazade gestaltet digitale Kunst, die man nicht nur anschauen, sondern auch anfassen und erleben kann...</p>
+      <p>
+        Xara Sheherazade gestaltet digitale Kunst, die man nicht nur anschauen, sondern auch anfassen und erleben kann. Interaktive Installationen, zum Mitmachen – zum Nachdenken.
+        Aktuell studiert sie Kunst und Multimedia an der LMU München und experimentiert mit allem, was zwischen Code, Raum und Gefühl passiert.
+      </p>
 
       <h3>Wo ich demnächst ausstelle + Events</h3>
-      <p><strong>AUSGESTELLT – Werkschau...</strong><br>
-         Eröffnung: 11. September 2025 – Farbenladen, München</p>
+      <p><strong>AUSGESTELLT – Werkschau der Studierenden der Bildenden Kunst an der LMU München</strong><br>
+      Eröffnung (Vernissage): Donnerstag, 11. September 2025<br>
+      Finissage: Samstag, 27. September<br>
+      Öffnungszeiten: Donnerstag bis Sonntag, 16 – 20 Uhr<br>
+      Ort: Farbenladen im Feierwerk, München<br>
+      Eintritt frei</p>
 
-      <h3>Was bisher geschah</h3>
+      <h3>Was ich so ausgestellt & mitgemacht habe</h3>
       <ul>
-        <li>DEZ 2024 – Broke Today Happy End Hotel – Kamerapuppe</li>
+        <li>DEZ 2024 – Broke Today Happy End Hotel – Installation Kamerapuppe</li>
         <li>APR 2025 – Pixel Gasteig – Puppen & Liquid Light Show</li>
-        <!-- ... -->
+        <li>MAI 2025 – DAS Digital Art Space – Puppe & KI</li>
+        <li>MAI 2025 – Gallerie FÖE Bürgerpark Oberföhring – Der Zwerg</li>
+        <li>JUN 2025 – DachüberKopf Festival – Skulpturen</li>
+        <li>JUN 2025 – Mucca Skate Jam – Liquid Light Show</li>
       </ul>
 
-      <h3>Vita</h3>
+      <h3>Was ich so die letzten 10 Jahre getrieben hab</h3>
       <ul>
-        <li>SEP 2023 – BA Kunst & Multimedia / Medieninformatik – LMU</li>
-        <li>2019 – Wissenschaftliche Mitarbeiterin – Hochschule Kempten</li>
-        <!-- ... -->
+        <li>SEP 2023 – Heute – BA Kunst & Multimedia / Medieninformatik – LMU</li>
+        <li>JAN 2023 – Heute – Junior Projekt Lead – (IT, E-Learning & Digitalisierung)</li>
+        <li>2019 – 2022 – Wissenschaftliche Mitarbeiterin – Hochschule Kempten</li>
+        <li>Class of 2020 – First Class Honours Bachelor International Business & HRM – Glasgow</li>
+        <li>FEB – JUN 2018 – Development Center Koordination – Deutschland & USA</li>
+        <li>2015 – 2018 – Event Assistant & Teamleitung – ASA & Buhl GmbH</li>
+        <li>2015 – 2017 – HNC Diploma in Hospitality Management – Glasgow College</li>
       </ul>
     </div>
+    <div class="arrow left" onclick="showPage(2)">←</div>
   </div>
 
   <script src="script.js"></script>
