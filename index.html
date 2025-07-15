@@ -2,29 +2,51 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>Xara Sheherazade</title>
+  <title>a r a x . a r t</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <section class="about-section">
-      <div class="about-text">
-        <h1>o__o</h1>
-        <p>
-          Xara Sheherazade gestaltet digitale Kunst, die man nicht nur anschauen, sondern auch anfassen und erleben kann. Interaktive Installationen, zum Mitmachen – zum Nachdenken.
-        </p>
-        <p>
-          Aktuell studiert sie Kunst und Multimedia an der LMU München und experimentiert mit allem, was zwischen Code, Raum und Gefühl passiert.
-        </p>
-      </div>
-      <div class="about-image">
-        <img src="xara_pic.jpg" alt="Bild rechts neben Text">
-      </div>
-    </section>
+  <div id="page1" class="page active">
+    <canvas id="drawCanvas"></canvas>
+    <h1 class="logo">arax art</h1>
+    <div class="arrow" onclick="showPage(2)">➤</div>
+  </div>
 
-    <div class="image-below">
-      <img src="lebenslauf.jpg" alt="Bild unter dem Text">
+  <div id="page2" class="page">
+    <div class="gallery">
+      <!-- Bildergalerie -->
+      <img src="bilder/bild1.jpg" alt="">
+      <img src="bilder/bild2.jpg" alt="">
+      <!-- weitere Bilder hier -->
+    </div>
+    <div class="arrow" onclick="showPage(3)">➤</div>
+  </div>
+
+  <div id="page3" class="page">
+    <div class="info">
+      <h2>Über Xara</h2>
+      <p>Xara Sheherazade gestaltet digitale Kunst, die man nicht nur anschauen, sondern auch anfassen und erleben kann...</p>
+
+      <h3>Wo ich demnächst ausstelle + Events</h3>
+      <p><strong>AUSGESTELLT – Werkschau...</strong><br>
+         Eröffnung: 11. September 2025 – Farbenladen, München</p>
+
+      <h3>Was bisher geschah</h3>
+      <ul>
+        <li>DEZ 2024 – Broke Today Happy End Hotel – Kamerapuppe</li>
+        <li>APR 2025 – Pixel Gasteig – Puppen & Liquid Light Show</li>
+        <!-- ... -->
+      </ul>
+
+      <h3>Vita</h3>
+      <ul>
+        <li>SEP 2023 – BA Kunst & Multimedia / Medieninformatik – LMU</li>
+        <li>2019 – Wissenschaftliche Mitarbeiterin – Hochschule Kempten</li>
+        <!-- ... -->
+      </ul>
     </div>
   </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
