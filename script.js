@@ -9,8 +9,7 @@ resizeCanvas();
 
 let drawing = false;
 
-canvas.addEventListener('mousedown', () => drawing = true);
-canvas.addEventListener('mouseup', () => drawing = false);
+drawing = true; // Immer zeichnen
 canvas.addEventListener('mousemove', draw);
 
 window.addEventListener('resize', resizeCanvas);
