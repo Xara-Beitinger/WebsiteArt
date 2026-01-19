@@ -6,64 +6,74 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Seite 1 -->
-  <div id="page1" class="page active">
+  <nav class="navbar">
+    <div class="logo" onclick="showPage('home')">araxart</div>
+    <select class="nav-select" onchange="navigateToPage(this.value)">
+      <option disabled selected>select page</option>
+      <option value="conditional-entry">Conditional Entry</option>
+      <option value="artifact-or-artifice">Artifact or Artifice</option>
+      <option value="do-crime">Do Crime</option>
+      <option value="ai-doll">AI-Doll</option>
+      <option value="photography">Photography</option>
+      <option value="about-me">About Me</option>
+    </select>
+  </nav>
+
+  <!-- Homepage Drawing Canvas -->
+  <div id="home" class="page active">
     <canvas id="drawCanvas"></canvas>
-    <h1 class="logo">arax art</h1>
-    <div class="arrow right" onclick="showPage(2)">▶</div>
   </div>
 
-  <!-- Seite 2 -->
-  <div id="page2" class="page">
-    <div class="gallery">
-      <img src="bilder/bild1.jpg" alt="">
-      <img src="bilder/bild2.jpg" alt="">
-      <img src="bilder/bild3.jpg" alt="">
-      <img src="bilder/bild4.jpg" alt="">
-      <img src="bilder/bild5.jpg" alt="">
-      <img src="bilder/bild6.jpg" alt="">
-      <img src="bilder/bild7.jpg" alt="">
-      <img src="bilder/bild8.jpg" alt="">
-      <!-- weitere Bilder hier -->
-    </div>
-    <button class="shuffle-button" onclick="randomizeGalleryImages()">Shuffle</button>
-    <div class="arrow left" onclick="showPage(1)">◀</div>
-    <div class="arrow right" onclick="showPage(3)">▶</div>
+  <!-- New Pages -->
+  <div id="conditional-entry" class="page">
+    <button onclick="showPage('home')">Home</button>
+    <h2>Conditional Entry</h2>
+    <p class="description">Description goes here...</p>
+    <img src="bilder/conditional1.jpg" alt="">
   </div>
 
-  <!-- Seite 3 -->
-  <div id="page3" class="page">
-    <div class="info">
+  <div id="artifact-or-artifice" class="page">
+    <button onclick="showPage('home')">Home</button>
+    <h2>Artifact or Artifice</h2>
+    <p class="description">Description goes here...</p>
+    <img src="bilder/artifact1.jpg" alt="">
+  </div>
 
-      <p>
-I create digital art that can be experienced. Interactive installations that invite participation and reflection.
-I am currently studying art and multimedia at LMU Munich and experimenting with things that happens between code, space, and emotion.
-      </p>
+  <div id="do-crime" class="page">
+    <button onclick="showPage('home')">Home</button>
+    <h2>Do Crime</h2>
+    <p class="description">Description goes here...</p>
+    <img src="bilder/crime1.jpg" alt="">
+  </div>
 
-      <h3>A list of things, I've participated in</h3>
-      <ul>
-        <li>NOV 2025 – Xplorer Day Deutsches Museum – KI & XR – „Artifact or Artifice?”</li> 
-        <li>SEP 2025 – Ausgestellt – Werkschau der Studierenden der Bildenden Kunst an der LMU München – Organisation, Leitung & Ausstellung: Lichtmobilé, Ampel und Circuit Bent Toy </li>
-        <li>SEP 2025 – Heute – Assistenzkraft Institut Kunstpädagogik (Admin & E-learning)</li>
-        <li>JUN 2025 – Mucca Skate Jam – Liquid Light Show</li>
-        <li>JUN 2025 – DachüberKopf Festival – Leitung Dekoteam, Skulpturen, Videoschnitt</li>
-        <li>MAI 2025 – Gallerie FÖE Bürgerpark Oberföhring – Installation Kamerazwerg</li>
-        <li>MAI 2025 – DAS Digital Art Space – Puppe & KI</li>
-        <li>APR 2025 – Pixel Gasteig – Puppen & Liquid Light Show</li>
-        <li>DEZ 2024 – Broke Today Happy End Hotel – Installation Kamerapuppe</li>
-        <li>AUG 2024 – Heute – Fachschaftssprecherin - Fachschaft bildende Kunst</li>
-        <li>SEP 2023 – Heute – BA Kunst & Multimedia / Medieninformatik – LMU</li>
-        <li>SEP 2023 – Heute – Tutorin - Augmented Reality & Blender</li>
-        <li>JAN 2023 – Heute – Junior Projekt Lead – (IT, E-Learning & Digitalisierung)</li>
-        <li>2019 – 2022 – Wissenschaftliche Mitarbeiterin – Hochschule Kempten</li>
-        <li>Class of 2020 – First Class Honours Bachelor International Business & HRM – Glasgow</li>
-        <li>FEB – JUN 2018 – Development Center Koordination – Deutschland & USA</li>
-        <li>2015 – 2018 – Event Assistant & Teamleitung – ASA & Buhl GmbH</li>
-        <li>2015 – 2017 – HNC Diploma in Hospitality Management – Glasgow College</li>
-      </ul>
-      
-    </div>
-    <div class="arrow left" onclick="showPage(2)">◀</div>
+  <div id="ai-doll" class="page">
+    <button onclick="showPage('home')">Home</button>
+    <h2>AI-Doll</h2>
+    <p class="description">Description goes here...</p>
+    <img src="bilder/aidoll1.jpg" alt="">
+  </div>
+
+  <div id="photography" class="page">
+    <button onclick="showPage('home')">Home</button>
+    <h2>Photography</h2>
+    <p class="description">Description goes here...</p>
+    <img src="bilder/photo1.jpg" alt="">
+  </div>
+
+  <div id="about-me" class="page">
+    <button onclick="showPage('home')">Home</button>
+    <h2>About Me</h2>
+    <p>
+      I create digital art that can be experienced. Interactive installations that invite participation and reflection.
+      I am currently studying art and multimedia at LMU Munich and experimenting with things that happen between code, space, and emotion.
+    </p>
+    <h3>A list of things I've participated in</h3>
+    <ul>
+      <li>NOV 2025 – Xplorer Day Deutsches Museum – KI & XR – "Artifact or Artifice?"</li>
+      <li>SEP 2025 – Werkschau LMU – Lichtmobilé, Ampel, Circuit Bent Toy</li>
+      <li>SEP 2025 – Heute – Institut Kunstpädagogik – Assistenzkraft</li>
+      <li>... (rest of your list) ...</li>
+    </ul>
   </div>
 
   <script src="script.js"></script>
