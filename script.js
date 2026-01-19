@@ -1,4 +1,4 @@
-// Canvas Drawing on Homepage
+// Drawing on canvas (homepage)
 window.onload = function () {
   const canvas = document.getElementById('drawCanvas');
   const ctx = canvas.getContext('2d');
@@ -25,7 +25,12 @@ window.onload = function () {
   }
 };
 
-// Navigation
+// Menu + navigation
+function toggleMenu() {
+  const menu = document.getElementById('dropdownMenu');
+  menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+}
+
 function showPage(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
@@ -36,7 +41,18 @@ function navigateToPage(pageId) {
   showPage(pageId);
 }
 
-function toggleMenu() {
-  const menu = document.getElementById('dropdownMenu');
-  menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+// Shuffle gallery images on the Photography page
+function randomizeGalleryImages() {
+  const gallery = document.querySelector('#photography .gallery');
+  const images = Array.from(gallery.querySelectorAll('img'));
+  images.forEach(img => gallery.removeChild(img));
+  
+  // Shuffle array
+  for (let i = images.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [images[i], images[j]] = [images[j], images[i]];
+  }
+
+  // Append shuffled images back
+  images.forEach(img => gallery.appendChild(img));
 }
