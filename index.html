@@ -2,38 +2,45 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>a r a x . a r t</title>
+  <title>a r a x a r t</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Seite 1: Interaktives Malen -->
+  <!-- Seite 1 -->
   <div id="page1" class="page active">
     <canvas id="drawCanvas"></canvas>
     <h1 class="logo">arax art</h1>
-    <div class="arrow right" onclick="showPage(2)">➤</div>
+    <div class="arrow right" onclick="showPage(2)">▶</div>
   </div>
 
-  <!-- Seite 2: Galerie -->
+  <!-- Seite 2 -->
   <div id="page2" class="page">
     <div class="gallery">
       <img src="bilder/bild1.jpg" alt="">
       <img src="bilder/bild2.jpg" alt="">
-      <!-- weitere Bilder -->
+      <img src="bilder/bild3.jpg" alt="">
+      <img src="bilder/bild4.jpg" alt="">
+      <img src="bilder/bild5.jpg" alt="">
+      <img src="bilder/bild6.jpg" alt="">
+      <img src="bilder/bild7.jpg" alt="">
+      <img src="bilder/bild8.jpg" alt="">
+      <!-- weitere Bilder hier -->
     </div>
-    <div class="arrow left" onclick="showPage(1)">←</div>
-    <div class="arrow right" onclick="showPage(3)">➤</div>
+    <button class="shuffle-button" onclick="randomizeGalleryImages()">Shuffle</button>
+    <div class="arrow left" onclick="showPage(1)">◀</div>
+    <div class="arrow right" onclick="showPage(3)">▶</div>
   </div>
 
-  <!-- Seite 3: Info -->
+  <!-- Seite 3 -->
   <div id="page3" class="page">
     <div class="info">
-      <h2>Über Xara</h2>
+
       <p>
-        Xara Sheherazade gestaltet digitale Kunst, die man nicht nur anschauen, sondern auch anfassen und erleben kann. Interaktive Installationen, zum Mitmachen – zum Nachdenken.
+        Xara Sheherazade gestaltet digitale Kunst zum Erleben. Interaktive Installationen, zum Mitmachen – zum Nachdenken.
         Aktuell studiert sie Kunst und Multimedia an der LMU München und experimentiert mit allem, was zwischen Code, Raum und Gefühl passiert.
       </p>
 
-      <h3>Wo ich demnächst ausstelle + Events</h3>
+      <h3>Was noch geschieht</h3>
       <p><strong>AUSGESTELLT – Werkschau der Studierenden der Bildenden Kunst an der LMU München</strong><br>
       Eröffnung (Vernissage): Donnerstag, 11. September 2025<br>
       Finissage: Samstag, 27. September<br>
@@ -41,7 +48,7 @@
       Ort: Farbenladen im Feierwerk, München<br>
       Eintritt frei</p>
 
-      <h3>Was ich so ausgestellt & mitgemacht habe</h3>
+      <h3>Was schon geschah</h3>
       <ul>
         <li>DEZ 2024 – Broke Today Happy End Hotel – Installation Kamerapuppe</li>
         <li>APR 2025 – Pixel Gasteig – Puppen & Liquid Light Show</li>
@@ -62,7 +69,7 @@
         <li>2015 – 2017 – HNC Diploma in Hospitality Management – Glasgow College</li>
       </ul>
     </div>
-    <div class="arrow left" onclick="showPage(2)">←</div>
+    <div class="arrow left" onclick="showPage(2)">◀</div>
   </div>
 
   <script src="script.js"></script>
