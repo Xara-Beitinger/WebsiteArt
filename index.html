@@ -7,16 +7,16 @@
 </head>
 <body>
   <nav class="navbar">
+    <div class="menu-icon" onclick="toggleMenu()">&#9776;</div>
     <div class="logo" onclick="showPage('home')">araxart</div>
-    <select class="nav-select" onchange="navigateToPage(this.value)">
-      <option disabled selected>select page</option>
-      <option value="conditional-entry">Conditional Entry</option>
-      <option value="artifact-or-artifice">Artifact or Artifice</option>
-      <option value="do-crime">Do Crime</option>
-      <option value="ai-doll">AI-Doll</option>
-      <option value="photography">Photography</option>
-      <option value="about-me">About Me</option>
-    </select>
+    <div class="dropdown-menu" id="dropdownMenu">
+      <div onclick="navigateToPage('conditional-entry')">Conditional Entry</div>
+      <div onclick="navigateToPage('artifact-or-artifice')">Artifact or Artifice</div>
+      <div onclick="navigateToPage('do-crime')">Do Crime</div>
+      <div onclick="navigateToPage('ai-doll')">AI-Doll</div>
+      <div onclick="navigateToPage('photography')">Photography</div>
+      <div onclick="navigateToPage('about-me')">About Me</div>
+    </div>
   </nav>
 
   <!-- Homepage Drawing Canvas -->
