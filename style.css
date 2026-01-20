@@ -57,12 +57,11 @@ canvas {
   transition: background 0.2s ease;
 }
 
-/* Hover: icon OR text triggers same highlight */
 .menu-trigger:hover {
   background: rgba(255, 255, 255, 0.08);
 }
 
-/* Hamburger icon */
+/* Hamburger */
 .hamburger {
   display: inline-flex;
   flex-direction: column;
@@ -84,12 +83,12 @@ canvas {
   line-height: 1;
 }
 
-/* Dropdown menu */
+/* Dropdown */
 .dropdown {
   margin-top: 8px;
   width: max-content;
   min-width: 260px;
-  background: rgba(255, 255, 255, 0.08); /* lighter grey, not too light */
+  background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 10px;
   overflow: hidden;
@@ -116,27 +115,31 @@ canvas {
   background: rgba(255, 255, 255, 0.10);
 }
 
-/* Home button on subpages */
-.home-button {
+/* Home icon button */
+.home-icon {
   position: absolute;
   top: 20px;
   left: 20px;
+  z-index: 6;
+  border: none;
   background: transparent;
-  color: white;
-  border: 1px solid rgba(255,255,255,0.8);
-  padding: 8px 14px;
-  font-size: 14px;
-  cursor: pointer;
-  z-index: 5;
-  transition: background 0.3s;
+  padding: 6px 10px;
   border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
 }
 
-.home-button:hover {
-  background: rgba(255, 255, 255, 0.1);
+.home-icon:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
 
-/* Project pages content */
+.home-icon img {
+  width: 26px;
+  height: 26px;
+  display: block;
+}
+
+/* Project pages */
 .project {
   max-width: 900px;
   margin: 80px auto 40px auto;
@@ -169,7 +172,7 @@ canvas {
   border-radius: 10px;
 }
 
-/* Photographie gallery (random scattered) */
+/* Photographie gallery */
 .gallery {
   position: relative;
   width: 100%;
@@ -217,7 +220,7 @@ canvas {
   background: rgba(255, 255, 255, 0.1);
 }
 
-/* About / info page */
+/* About page */
 .info {
   max-width: 800px;
   margin: 0 auto;
@@ -236,7 +239,7 @@ canvas {
   line-height: 1.6;
 }
 
-/* Video embed */
+/* Video */
 .video-wrap {
   width: 100%;
   max-width: 900px;
@@ -245,6 +248,6 @@ canvas {
 
 .video-wrap iframe {
   width: 100%;
-  height: 506px; /* nice default; adjusts with width */
+  height: 506px;
   border-radius: 12px;
 }
