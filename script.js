@@ -3,7 +3,6 @@ window.onload = function () {
   const ctx = canvas.getContext('2d');
   resizeCanvas();
 
-  // Drawing active (without click)
   let drawing = true;
 
   canvas.addEventListener('mousemove', draw);
@@ -27,7 +26,6 @@ window.onload = function () {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
   }
 
-  // Dropdown behavior
   const trigger = document.getElementById('menuTrigger');
   const menu = document.getElementById('dropdownMenu');
 
@@ -51,31 +49,24 @@ window.onload = function () {
     toggleMenu();
   });
 
-  // Close when clicking outside
   document.addEventListener('click', () => closeMenu());
-
-  // Prevent clicks inside menu from closing before navigation
   menu.addEventListener('click', (e) => e.stopPropagation());
 
-  // Close on ESC
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeMenu();
   });
 };
 
-// Navigation
 function navigateTo(pageId) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const page = document.getElementById(pageId);
   if (!page) return;
   page.classList.add('active');
 
-  // If Photographie page, randomize after a tick (so images have layout)
   if (pageId === 'photographie') {
     setTimeout(randomizeGalleryImages, 200);
   }
 
-  // Close dropdown if open (safe even if not on home)
   const menu = document.getElementById('dropdownMenu');
   const trigger = document.getElementById('menuTrigger');
   if (menu && trigger) {
@@ -84,7 +75,6 @@ function navigateTo(pageId) {
   }
 }
 
-// Random position + rotation (Photographie)
 function randomizeGalleryImages() {
   const images = document.querySelectorAll('#photographie .gallery img');
   images.forEach(img => {
@@ -100,7 +90,6 @@ function randomizeGalleryImages() {
   });
 }
 
-// Zoom on click
 function toggleImageFocus(e) {
   const img = e.target;
   const isFocused = img.classList.contains('focused');
@@ -113,6 +102,6 @@ function toggleImageFocus(e) {
   if (!isFocused) {
     img.classList.add('focused');
   } else {
-    randomizeGalleryImages(); // back
+    randomizeGalleryImages();
   }
 }
