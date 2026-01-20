@@ -97,27 +97,32 @@ canvas {
 
 .dropdown-item:hover { background: rgba(255, 255, 255, 0.10); }
 
-/* Home icon (no frame, only hover background) */
+/* Home icon (visible) */
 .home-icon {
   position: absolute;
   top: 20px;
   left: 20px;
-  z-index: 6;
+  z-index: 999;
   border: none;
   background: transparent;
   padding: 6px 10px;
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.2s ease;
+  color: white;
 }
 
 .home-icon:hover { background: rgba(255, 255, 255, 0.08); }
 
 .home-icon svg {
-  width: 26px;
-  height: 26px;
+  width: 34px;
+  height: 34px;
   display: block;
-  fill: white;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 /* Project pages */
@@ -188,6 +193,7 @@ canvas {
 
 .shuffle-button:hover { background: rgba(255, 255, 255, 0.1); }
 
+/* About page */
 .info {
   max-width: 800px;
   margin: 0 auto;
@@ -203,6 +209,7 @@ canvas {
   line-height: 1.6;
 }
 
+/* Video */
 .video-wrap { width: 100%; max-width: 900px; margin-top: 18px; }
 
 .video-wrap iframe {
