@@ -6,15 +6,105 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Seite 1 -->
-  <div id="page1" class="page active">
+
+  <!-- HOME -->
+  <div id="home" class="page active">
     <canvas id="drawCanvas"></canvas>
-    <h1 class="logo">arax art</h1>
-    <div class="arrow right" onclick="showPage(2)">▶</div>
+
+    <!-- Menu Trigger (hamburger + title) -->
+    <div class="menu-wrapper">
+      <button class="menu-trigger" id="menuTrigger" aria-haspopup="true" aria-expanded="false">
+        <span class="hamburger" aria-hidden="true">
+          <span></span><span></span><span></span>
+        </span>
+        <span class="menu-title">arax art</span>
+      </button>
+
+      <!-- Dropdown -->
+      <div class="dropdown" id="dropdownMenu" aria-label="Navigation menu">
+        <button class="dropdown-item" onclick="navigateTo('conditional')">Conditional Entry</button>
+        <button class="dropdown-item" onclick="navigateTo('artifact')">Artifact or Artifice</button>
+        <button class="dropdown-item" onclick="navigateTo('crime')">Do Crime</button>
+        <button class="dropdown-item" onclick="navigateTo('aidoll')">AI-Doll</button>
+        <button class="dropdown-item" onclick="navigateTo('photographie')">Photographie</button>
+        <button class="dropdown-item" onclick="navigateTo('video')">Video</button>
+        <button class="dropdown-item" onclick="navigateTo('about')">About Me</button>
+      </div>
+    </div>
   </div>
 
-  <!-- Seite 2 -->
-  <div id="page2" class="page">
+  <!-- Conditional Entry -->
+  <div id="conditional" class="page">
+    <button class="home-button" onclick="navigateTo('home')">Home</button>
+
+    <div class="project">
+      <h2>Conditional Entry</h2>
+      <p class="small">
+        (Add your description here — small text. Add images/videos below.)
+      </p>
+
+      <div class="media">
+        <img src="bilder/bild1.jpg" alt="">
+        <img src="bilder/bild2.jpg" alt="">
+      </div>
+    </div>
+  </div>
+
+  <!-- Artifact or Artifice -->
+  <div id="artifact" class="page">
+    <button class="home-button" onclick="navigateTo('home')">Home</button>
+
+    <div class="project">
+      <h2>Artifact or Artifice</h2>
+      <p class="small">
+        (Add your description here — small text. Add images/videos below.)
+      </p>
+
+      <div class="media">
+        <img src="bilder/bild3.jpg" alt="">
+        <img src="bilder/bild4.jpg" alt="">
+      </div>
+    </div>
+  </div>
+
+  <!-- Do Crime -->
+  <div id="crime" class="page">
+    <button class="home-button" onclick="navigateTo('home')">Home</button>
+
+    <div class="project">
+      <h2>Do Crime</h2>
+      <p class="small">
+        (Add your description here — small text. Add images/videos below.)
+      </p>
+
+      <div class="media">
+        <img src="bilder/bild5.jpg" alt="">
+        <img src="bilder/bild6.jpg" alt="">
+      </div>
+    </div>
+  </div>
+
+  <!-- AI-Doll -->
+  <div id="aidoll" class="page">
+    <button class="home-button" onclick="navigateTo('home')">Home</button>
+
+    <div class="project">
+      <h2>AI-Doll</h2>
+      <p class="small">
+        (Add your description here — small text. Add images/videos below.)
+      </p>
+
+      <div class="media">
+        <img src="bilder/bild7.jpg" alt="">
+        <img src="bilder/bild8.jpg" alt="">
+      </div>
+    </div>
+  </div>
+
+  <!-- Photographie (shuffle + scattered gallery) -->
+  <div id="photographie" class="page">
+    <button class="home-button" onclick="navigateTo('home')">Home</button>
+
     <div class="gallery">
       <img src="bilder/bild1.jpg" alt="">
       <img src="bilder/bild2.jpg" alt="">
@@ -24,43 +114,61 @@
       <img src="bilder/bild6.jpg" alt="">
       <img src="bilder/bild7.jpg" alt="">
       <img src="bilder/bild8.jpg" alt="">
-      <!-- weitere Bilder hier -->
+      <img src="bilder/bild9.jpg" alt="">
+      <img src="bilder/bild10.jpg" alt="">
+      <img src="bilder/bild11.jpg" alt="">
     </div>
+
     <button class="shuffle-button" onclick="randomizeGalleryImages()">Shuffle</button>
-    <div class="arrow left" onclick="showPage(1)">◀</div>
-    <div class="arrow right" onclick="showPage(3)">▶</div>
   </div>
 
-  <!-- Seite 3 -->
-  <div id="page3" class="page">
-    <div class="info">
+  <!-- Video (YouTube Embed) -->
+  <div id="video" class="page">
+    <button class="home-button" onclick="navigateTo('home')">Home</button>
 
-      <p>
-        Xara Sheherazade gestaltet digitale Kunst zum Erleben. Interaktive Installationen, zum Mitmachen – zum Nachdenken.
-        Aktuell studiert sie Kunst und Multimedia an der LMU München und experimentiert mit allem, was zwischen Code, Raum und Gefühl passiert.
+    <div class="project">
+      <h2>Video</h2>
+      <p class="small">
+        Embedded from YouTube.
       </p>
 
-      <h3>Was noch geschieht</h3>
-      <p><strong>AUSGESTELLT – Werkschau der Studierenden der Bildenden Kunst an der LMU München</strong><br>
-      Eröffnung (Vernissage): Donnerstag, 11. September 2025<br>
-      Finissage: Samstag, 27. September<br>
-      Öffnungszeiten: Donnerstag bis Sonntag, 16 – 20 Uhr<br>
-      Ort: Farbenladen im Feierwerk, München<br>
-      Eintritt frei</p>
+      <div class="video-wrap">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/qrU1n54vE5g"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </div>
+  </div>
 
-      <h3>Was schon geschah</h3>
+  <!-- About Me -->
+  <div id="about" class="page">
+    <button class="home-button" onclick="navigateTo('home')">Home</button>
+
+    <div class="info">
+      <h2>About Me</h2>
+      <p>
+        I create digital art that can be experienced — interactive installations that invite participation and reflection.
+        I am currently studying Art and Multimedia at LMU Munich and experimenting with what happens between code, space, and emotion.
+      </p>
+
+      <h3>A list of things I've participated in</h3>
       <ul>
-        <li>DEZ 2024 – Broke Today Happy End Hotel – Installation Kamerapuppe</li>
-        <li>APR 2025 – Pixel Gasteig – Puppen & Liquid Light Show</li>
-        <li>MAI 2025 – DAS Digital Art Space – Puppe & KI</li>
-        <li>MAI 2025 – Gallerie FÖE Bürgerpark Oberföhring – Der Zwerg</li>
-        <li>JUN 2025 – DachüberKopf Festival – Skulpturen</li>
+        <li>NOV 2025 – Xplorer Day Deutsches Museum – KI & XR – „Artifact or Artifice?”</li>
+        <li>SEP 2025 – Ausgestellt – Werkschau der Studierenden der Bildenden Kunst an der LMU München – Organisation, Leitung & Ausstellung: Lichtmobilé, Ampel und Circuit Bent Toy</li>
+        <li>SEP 2025 – Heute – Assistenzkraft Institut Kunstpädagogik (Admin & E-learning)</li>
         <li>JUN 2025 – Mucca Skate Jam – Liquid Light Show</li>
-      </ul>
-
-      <h3>Was ich so die letzten 10 Jahre getrieben hab</h3>
-      <ul>
+        <li>JUN 2025 – DachüberKopf Festival – Leitung Dekoteam, Skulpturen, Videoschnitt</li>
+        <li>MAI 2025 – Gallerie FÖE Bürgerpark Oberföhring – Installation Kamerazwerg</li>
+        <li>MAI 2025 – DAS Digital Art Space – Puppe & KI</li>
+        <li>APR 2025 – Pixel Gasteig – Puppen & Liquid Light Show</li>
+        <li>DEZ 2024 – Broke Today Happy End Hotel – Installation Kamerapuppe</li>
+        <li>AUG 2024 – Heute – Fachschaftssprecherin - Fachschaft bildende Kunst</li>
         <li>SEP 2023 – Heute – BA Kunst & Multimedia / Medieninformatik – LMU</li>
+        <li>SEP 2023 – Heute – Tutorin - Augmented Reality & Blender</li>
         <li>JAN 2023 – Heute – Junior Projekt Lead – (IT, E-Learning & Digitalisierung)</li>
         <li>2019 – 2022 – Wissenschaftliche Mitarbeiterin – Hochschule Kempten</li>
         <li>Class of 2020 – First Class Honours Bachelor International Business & HRM – Glasgow</li>
@@ -69,7 +177,6 @@
         <li>2015 – 2017 – HNC Diploma in Hospitality Management – Glasgow College</li>
       </ul>
     </div>
-    <div class="arrow left" onclick="showPage(2)">◀</div>
   </div>
 
   <script src="script.js"></script>
