@@ -36,9 +36,8 @@ window.onload = function () {
 
   function toggleMenu() {
     const isOpen = menu.classList.contains('open');
-    if (isOpen) {
-      closeMenu();
-    } else {
+    if (isOpen) closeMenu();
+    else {
       trigger.setAttribute('aria-expanded', 'true');
       menu.classList.add('open');
     }
@@ -99,9 +98,6 @@ function toggleImageFocus(e) {
     i.style.zIndex = 1;
   });
 
-  if (!isFocused) {
-    img.classList.add('focused');
-  } else {
-    randomizeGalleryImages();
-  }
+  if (!isFocused) img.classList.add('focused');
+  else randomizeGalleryImages();
 }
