@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>a r a x a r t</title>
+    
+    <!-- Courier Prime – vintage typewriter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
+    
+    <style>
+        /* ── RESET & BASE ── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #212121;
+            color: #ffffff;
+            font-family: 'Courier Prime', 'Courier New', monospace;
+            font-weight: 400;
+            line-height: 1.7;
+            padding: 2rem 1.5rem 4rem;
+            min-height: 100vh;
+        }
+        
+        /* ── CONTAINER ── */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        /* ── INTRO TEXT ── */
+        .intro {
+            max-width: 820px;
+            margin-bottom: 3rem;
+            font-size: 1.05rem;
+            padding: 0 0.25rem;
+        }
+        
+        .intro p {
+            margin-bottom: 0.75rem;
+        }
+        
+        .intro .sig {
+            margin-top: 1rem;
+            opacity: 0.7;
+            font-style: italic;
+        }
+        
+        /* ── MASONRY GRID ── */
+        .gallery {
+            column-count: 3;
+            column-gap: 1.2rem;
+            padding: 0.25rem;
+        }
+        
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 1.2rem;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            background: #2a2a2a;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            position: relative;
+        }
+        
+        .gallery-item:hover {
+            transform: scale(1.01);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.6);
+        }
+        
+        .gallery-item img,
+        .gallery-item video {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            background: #2a2a2a;
+        }
+        
+        /* video thumbnail overlay */
+        .gallery-item .video-overlay {
+            position: relative;
+        }
+        
+        .gallery-item .video-overlay::after {
+            content: '▶';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3.5rem;
+            color: #fff;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
+            pointer-events: none;
+            opacity: 0.85;
+            transition: opacity 0.2s;
+        }
+        
+        .gallery-item .video-overlay:hover::after {
+            opacity: 1;
+        }
+        
+        /* item title (optional, shown on hover) */
+        .gallery-item .item-title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.2rem 1rem 0.8rem;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+            color: #fff;
+            font-size: 0.85rem;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+            pointer-events: none;
+        }
+        
+        .gallery-item:hover .item-title {
+            opacity: 1;
+        }
+        
+        /* ── LIGHTBOX / MODAL ── */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            backdrop-filter: blur(6px);
+            animation: fadeIn 0.25s ease;
+        }
+        
+        .lightbox.active {
+            display: flex;
+        }
+        
+        .lightbox-content {
+            max-width: 92vw;
+            max-height: 90vh;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            background: #000;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .lightbox-content img {
+            display: block;
+            width: auto;
+            max-width: 100%;
+            max-height: 85vh;
+            height: auto;
+            border-radius: 10px;
+        }
+        
+        .lightbox-content iframe {
+            display: block;
+            width: 80vw;
+            max-width: 900px;
+            height: 45vw;
+            max-height: 80vh;
+            border: none;
+            border-radius: 10px;
+            aspect-ratio: 16 / 9;
+        }
+        
+        /* close button */
+        .lightbox-close {
+            position: fixed;
+            top: 1.5rem;
+            right: 2rem;
+            font-size: 2.6rem;
+            color: #fff;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 10000;
+            opacity: 0.7;
+            transition: opacity 0.2s, transform 0.2s;
+            font-family: 'Courier Prime', monospace;
+        }
+        
+        .lightbox-close:hover {
+            opacity: 1;
+            transform: rotate(90deg);
+        }
+        
+        .lightbox-caption {
+            position: absolute;
+            bottom: 1.2rem;
+            left: 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.25rem 0.9rem;
+            border-radius: 20px;
+            font-family: 'Courier Prime', monospace;
+        }
+        
+        /* ── ANIMATION ── */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.96); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+        
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1024px) {
+            .gallery {
+                column-count: 2;
+                column-gap: 1rem;
+            }
+            .gallery-item {
+                margin-bottom: 1rem;
+            }
+            .lightbox-content iframe {
+                width: 85vw;
+                height: 48vw;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            body {
+                padding: 1.2rem 0.9rem 3rem;
+            }
+            .intro {
+                font-size: 0.95rem;
+                padding: 0;
+            }
+            .gallery {
+                column-count: 2;
+                column-gap: 0.7rem;
+            }
+            .gallery-item {
+                margin-bottom: 0.7rem;
+                border-radius: 6px;
+            }
+            .gallery-item .video-overlay::after {
+                font-size: 2.2rem;
+            }
+            .lightbox {
+                padding: 0.5rem;
+            }
+            .lightbox-content iframe {
+                width: 95vw;
+                height: 54vw;
+            }
+            .lightbox-close {
+                top: 0.8rem;
+                right: 1.2rem;
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 420px) {
+            .gallery {
+                column-count: 1;
+                max-width: 380px;
+                margin: 0 auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- INTRO -->
+        <div class="intro">
+            <p>Hi there, I'm Xara. Welcome to my page.</p>
+            <p>I use this to showcase some of my past installations, projects I am working on and some other creations I find interesting. I'm interested in creating art that questions the current state of the world and inspires change and courage. I like to do this by adding interactive elements to my work, with a playful aspect that might make you laugh at first but leave you wondering.</p>
+            <p>This page is new and a wip, so all I have at the moment is the gallery – feel free to have a look.</p>
+        </div>
+        
+        <!-- GALLERY -->
+        <div class="gallery" id="gallery"></div>
+        
+    </div>
+    
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">✕</button>
+        <div class="lightbox-content" id="lightboxContent">
+            <!-- dynamic content -->
+        </div>
+    </div>
+    
+    <script>
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  GALLERY DATA — edit this array to add/remove items
+        //  For images:   { type: 'image', url: 'https://...', title: 'optional' }
+        //  For videos:   { type: 'video', url: 'VIDEO_ID', title: 'optional' }
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        
+        const galleryItems = [
+            // ── Placeholder images (20) ──
+            { type: 'image', url: 'bilder/bild1.jpg', title: 'Installation · Berlin' },
+            { type: 'image', url: 'bilder/bild2.jpg', title: 'Project · Light Study' },
+            { type: 'image', url: 'bilder/bild3.jpg', title: 'Sculpture · Reflection' },
+            { type: 'image', url: 'bilder/bild4.jpg', title: 'Installation · Tokyo' },
+            { type: 'image', url: 'bilder/bild5.jpg', title: 'Mixed Media · Fragments' },
+            { type: 'image', url: 'bilder/bild6.jpg', title: 'Project · Forest' },
+            { type: 'image', url: 'bilder/bild7.jpg', title: 'Sculpture · Tension' },
+            { type: 'image', url: 'bilder/bild8.jpg', title: 'Installation · New York' },
+            { type: 'image', url: 'bilder/bild9.jpg', title: 'Project · Cyanotype' },
+            { type: 'image', url: 'bilder/bild10.jpg', title: 'Installation · London' },
+            { type: 'image', url: 'bilder/bild11.jpg', title: 'Sculpture · Balance' },
+            { type: 'image', url: 'bilder/bild12.jpg', title: 'Project · In-Between' },
+            { type: 'image', url: 'bilder/bild13.jpg', title: 'Installation · Kyoto' },
+            { type: 'image', url: 'bilder/bild14.jpg', title: 'Mixed Media · Echo' },
+            { type: 'image', url: 'bilder/bild15.jpg', title: 'Sculpture · Anchor' },
+            { type: 'image', url: 'bilder/bild16.jpg', title: 'Project · Light + Shadow' },
+            
+            // ── YouTube videos ──
+            { type: 'video', url: '_QbfjNIJqrU', title: 'Video · Installation Walkthrough' },
+            { type: 'video', url: 'gsBKquVRgN4', title: 'Video · Process' },
+            { type: 'video', url: 'bRo_bRXZxkQ', title: 'Video · Short' },
+        ];
+        
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  RENDER GALLERY
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        
+        const galleryEl = document.getElementById('gallery');
+        const lightboxEl = document.getElementById('lightbox');
+        const lightboxContent = document.getElementById('lightboxContent');
+        const lightboxClose = document.getElementById('lightboxClose');
+        
+        // Build HTML
+        galleryItems.forEach((item, index) => {
+            const div = document.createElement('div');
+            div.className = 'gallery-item';
+            div.dataset.index = index;
+            
+            if (item.type === 'image') {
+                const img = document.createElement('img');
+                img.src = item.url;
+                img.alt = item.title || 'Gallery image';
+                img.loading = 'lazy';
+                div.appendChild(img);
+            } else if (item.type === 'video') {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'video-overlay';
+                const img = document.createElement('img');
+                img.src = `https://img.youtube.com/vi/${item.url}/hqdefault.jpg`;
+                img.alt = item.title || 'Video thumbnail';
+                img.loading = 'lazy';
+                wrapper.appendChild(img);
+                div.appendChild(wrapper);
+            }
+            
+            // optional title overlay
+            if (item.title) {
+                const caption = document.createElement('div');
+                caption.className = 'item-title';
+                caption.textContent = item.title;
+                div.appendChild(caption);
+            }
+            
+            // click → open lightbox
+            div.addEventListener('click', () => openLightbox(index));
+            galleryEl.appendChild(div);
+        });
+        
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  LIGHTBOX
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        
+        function openLightbox(index) {
+            const item = galleryItems[index];
+            if (!item) return;
+            
+            // clear previous
+            lightboxContent.innerHTML = '';
+            
+            if (item.type === 'image') {
+                const img = document.createElement('img');
+                img.src = item.url;
+                img.alt = item.title || 'Image';
+                lightboxContent.appendChild(img);
+            } else if (item.type === 'video') {
+                const iframe = document.createElement('iframe');
+                // YouTube embed with autoplay & modest branding
+                iframe.src = `https://www.youtube.com/embed/${item.url}?autoplay=1&rel=0&modestbranding=1`;
+                iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+                iframe.allowFullscreen = true;
+                lightboxContent.appendChild(iframe);
+            }
+            
+            // optional caption
+            if (item.title) {
+                const cap = document.createElement('div');
+                cap.className = 'lightbox-caption';
+                cap.textContent = item.title;
+                lightboxContent.appendChild(cap);
+            }
+            
+            lightboxEl.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeLightbox() {
+            lightboxEl.classList.remove('active');
+            document.body.style.overflow = '';
+            // stop any video
+            const iframe = lightboxContent.querySelector('iframe');
+            if (iframe) {
+                iframe.src = ''; // unload
+            }
+            lightboxContent.innerHTML = '';
+        }
+        
+        // close events
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxEl.addEventListener('click', (e) => {
+            if (e.target === lightboxEl) closeLightbox();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+        
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        //  RESPONSIVE MASONRY FIX (for variable heights)
+        //  The CSS column-count does the heavy lifting.
+        //  This ensures items break cleanly.
+        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+        
+        // No extra JS needed — CSS columns handle it beautifully.
+        // The only "gotcha" is that columns flow top-to-bottom,
+        // but that's the standard Pinterest look.
+        
+        console.log('✨ Xara’s gallery loaded — enjoy!');
+    </script>
+</body>
+</html>
