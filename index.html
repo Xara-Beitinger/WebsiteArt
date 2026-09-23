@@ -1,444 +1,521 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>a r a x a r t</title>
-    
-    <!-- Courier Prime – vintage typewriter font -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
-    
-    <style>
-        /* ── RESET & BASE ── */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            background-color: #212121;
-            color: #ffffff;
-            font-family: 'Courier Prime', 'Courier New', monospace;
-            font-weight: 400;
-            line-height: 1.7;
-            padding: 2rem 1.5rem 4rem;
-            min-height: 100vh;
-        }
-        
-        /* ── CONTAINER ── */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-        
-        /* ── INTRO TEXT ── */
-        .intro {
-            max-width: 820px;
-            margin-bottom: 3rem;
-            font-size: 1.05rem;
-            padding: 0 0.25rem;
-        }
-        
-        .intro p {
-            margin-bottom: 0.75rem;
-        }
-        
-        .intro .sig {
-            margin-top: 1rem;
-            opacity: 0.7;
-            font-style: italic;
-        }
-        
-        /* ── MASONRY GRID ── */
-        .gallery {
-            column-count: 3;
-            column-gap: 1.2rem;
-            padding: 0.25rem;
-        }
-        
-        .gallery-item {
-            break-inside: avoid;
-            margin-bottom: 1.2rem;
-            border-radius: 8px;
-            overflow: hidden;
-            cursor: pointer;
-            background: #2a2a2a;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            position: relative;
-        }
-        
-        .gallery-item:hover {
-            transform: scale(1.01);
-            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.6);
-        }
-        
-        .gallery-item img,
-        .gallery-item video {
-            display: block;
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            background: #2a2a2a;
-        }
-        
-        /* video thumbnail overlay */
-        .gallery-item .video-overlay {
-            position: relative;
-        }
-        
-        .gallery-item .video-overlay::after {
-            content: '▶';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 3.5rem;
-            color: #fff;
-            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.8);
-            pointer-events: none;
-            opacity: 0.85;
-            transition: opacity 0.2s;
-        }
-        
-        .gallery-item .video-overlay:hover::after {
-            opacity: 1;
-        }
-        
-        /* item title (optional, shown on hover) */
-        .gallery-item .item-title {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 1.2rem 1rem 0.8rem;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
-            color: #fff;
-            font-size: 0.85rem;
-            opacity: 0;
-            transition: opacity 0.25s ease;
-            pointer-events: none;
-        }
-        
-        .gallery-item:hover .item-title {
-            opacity: 1;
-        }
-        
-        /* ── LIGHTBOX / MODAL ── */
-        .lightbox {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.92);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-            backdrop-filter: blur(6px);
-            animation: fadeIn 0.25s ease;
-        }
-        
-        .lightbox.active {
-            display: flex;
-        }
-        
-        .lightbox-content {
-            max-width: 92vw;
-            max-height: 90vh;
-            border-radius: 10px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
-            background: #000;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .lightbox-content img {
-            display: block;
-            width: auto;
-            max-width: 100%;
-            max-height: 85vh;
-            height: auto;
-            border-radius: 10px;
-        }
-        
-        .lightbox-content iframe {
-            display: block;
-            width: 80vw;
-            max-width: 900px;
-            height: 45vw;
-            max-height: 80vh;
-            border: none;
-            border-radius: 10px;
-            aspect-ratio: 16 / 9;
-        }
-        
-        /* close button */
-        .lightbox-close {
-            position: fixed;
-            top: 1.5rem;
-            right: 2rem;
-            font-size: 2.6rem;
-            color: #fff;
-            background: none;
-            border: none;
-            cursor: pointer;
-            z-index: 10000;
-            opacity: 0.7;
-            transition: opacity 0.2s, transform 0.2s;
-            font-family: 'Courier Prime', monospace;
-        }
-        
-        .lightbox-close:hover {
-            opacity: 1;
-            transform: rotate(90deg);
-        }
-        
-        .lightbox-caption {
-            position: absolute;
-            bottom: 1.2rem;
-            left: 1.5rem;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 0.9rem;
-            background: rgba(0, 0, 0, 0.5);
-            padding: 0.25rem 0.9rem;
-            border-radius: 20px;
-            font-family: 'Courier Prime', monospace;
-        }
-        
-        /* ── ANIMATION ── */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.96); }
-            to   { opacity: 1; transform: scale(1); }
-        }
-        
-        /* ── RESPONSIVE ── */
-        @media (max-width: 1024px) {
-            .gallery {
-                column-count: 2;
-                column-gap: 1rem;
-            }
-            .gallery-item {
-                margin-bottom: 1rem;
-            }
-            .lightbox-content iframe {
-                width: 85vw;
-                height: 48vw;
-            }
-        }
-        
-        @media (max-width: 640px) {
-            body {
-                padding: 1.2rem 0.9rem 3rem;
-            }
-            .intro {
-                font-size: 0.95rem;
-                padding: 0;
-            }
-            .gallery {
-                column-count: 2;
-                column-gap: 0.7rem;
-            }
-            .gallery-item {
-                margin-bottom: 0.7rem;
-                border-radius: 6px;
-            }
-            .gallery-item .video-overlay::after {
-                font-size: 2.2rem;
-            }
-            .lightbox {
-                padding: 0.5rem;
-            }
-            .lightbox-content iframe {
-                width: 95vw;
-                height: 54vw;
-            }
-            .lightbox-close {
-                top: 0.8rem;
-                right: 1.2rem;
-                font-size: 2rem;
-            }
-        }
-        
-        @media (max-width: 420px) {
-            .gallery {
-                column-count: 1;
-                max-width: 380px;
-                margin: 0 auto;
-            }
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>a r a x a r t</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
+
+<style>
+  /* ── RESET & BASE ── */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: #212121;
+    color: #ffffff;
+    font-family: 'Courier Prime', 'Courier New', monospace;
+    font-weight: 400;
+    line-height: 1.7;
+    padding: 2rem 1.5rem 4rem;
+    min-height: 100vh;
+  }
+
+  .container { max-width: 1400px; margin: 0 auto; }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ── INTRO ── */
+  .intro {
+    max-width: 820px;
+    margin-bottom: 3rem;
+    font-size: 1.05rem;
+    padding: 0 0.25rem;
+  }
+  .intro p { margin-bottom: 0.75rem; }
+
+  /* ── HOME: PROJECT GRID ── */
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
+    padding: 0.25rem;
+  }
+
+  .project-card {
+    position: relative;
+    display: block;
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #2a2a2a;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .project-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.6);
+  }
+  .project-card img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: #2a2a2a;
+    transition: transform 0.3s ease;
+  }
+  .project-card:hover img {
+    transform: scale(1.04);
+  }
+  .project-card .card-label {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 1.5rem 0.85rem 0.75rem;
+    background: linear-gradient(transparent, rgba(0,0,0,0.75));
+    color: #fff;
+    font-size: 0.85rem;
+    letter-spacing: 0.02em;
+    line-height: 1.35;
+  }
+
+  /* ── PROJECT PAGE ── */
+  .back-link {
+    display: inline-block;
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+    opacity: 0.75;
+    transition: opacity 0.2s;
+  }
+  .back-link:hover { opacity: 1; }
+
+  .project-header {
+    max-width: 820px;
+    margin-bottom: 2.5rem;
+    padding: 0 0.25rem;
+  }
+  .project-header h1 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.02em;
+  }
+  .project-meta {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    font-style: italic;
+    margin-bottom: 1.2rem;
+  }
+  .project-description p { margin-bottom: 0.75rem; }
+
+  /* ── MASONRY GALLERY ── */
+  .gallery {
+    column-count: 3;
+    column-gap: 1.2rem;
+    padding: 0.25rem;
+  }
+  .gallery-item {
+    break-inside: avoid;
+    margin-bottom: 1.2rem;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    background: #2a2a2a;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+  }
+  .gallery-item:hover {
+    transform: scale(1.01);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.6);
+  }
+  .gallery-item img,
+  .gallery-item video {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    background: #2a2a2a;
+  }
+  .gallery-item .video-overlay { position: relative; }
+  .gallery-item .video-overlay::after {
+    content: '▶';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3.5rem;
+    color: #fff;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.8);
+    pointer-events: none;
+    opacity: 0.85;
+    transition: opacity 0.2s;
+  }
+  .gallery-item .video-overlay:hover::after { opacity: 1; }
+
+  .gallery-item .item-title {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 1.2rem 1rem 0.8rem;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    color: #fff;
+    font-size: 0.85rem;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+  }
+  .gallery-item:hover .item-title { opacity: 1; }
+
+  /* ── LIGHTBOX ── */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    backdrop-filter: blur(6px);
+    animation: fadeIn 0.25s ease;
+  }
+  .lightbox.active { display: flex; }
+
+  .lightbox-content {
+    max-width: 92vw;
+    max-height: 90vh;
+    border-radius: 10px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+    background: #000;
+    overflow: hidden;
+    position: relative;
+  }
+  .lightbox-content img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    max-height: 85vh;
+    height: auto;
+    border-radius: 10px;
+  }
+  .lightbox-content iframe {
+    display: block;
+    width: 80vw;
+    max-width: 900px;
+    height: 45vw;
+    max-height: 80vh;
+    border: none;
+    border-radius: 10px;
+    aspect-ratio: 16 / 9;
+  }
+  .lightbox-close {
+    position: fixed;
+    top: 1.5rem; right: 2rem;
+    font-size: 2.6rem;
+    color: #fff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 10000;
+    opacity: 0.7;
+    transition: opacity 0.2s, transform 0.2s;
+    font-family: 'Courier Prime', monospace;
+  }
+  .lightbox-close:hover { opacity: 1; transform: rotate(90deg); }
+
+  .lightbox-caption {
+    position: absolute;
+    bottom: 1.2rem; left: 1.5rem;
+    color: rgba(255,255,255,0.8);
+    font-size: 0.9rem;
+    background: rgba(0,0,0,0.5);
+    padding: 0.25rem 0.9rem;
+    border-radius: 20px;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.96); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1200px) {
+    .project-grid { grid-template-columns: repeat(4, 1fr); gap: 1.2rem; }
+  }
+  @media (max-width: 1024px) {
+    .project-grid { grid-template-columns: repeat(3, 1fr); }
+    .gallery { column-count: 2; column-gap: 1rem; }
+    .gallery-item { margin-bottom: 1rem; }
+    .lightbox-content iframe { width: 85vw; height: 48vw; }
+  }
+  @media (max-width: 700px) {
+    .project-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  }
+  @media (max-width: 640px) {
+    body { padding: 1.2rem 0.9rem 3rem; }
+    .intro { font-size: 0.95rem; padding: 0; }
+    .project-header { padding: 0; }
+    .project-header h1 { font-size: 1.35rem; }
+    .gallery { column-count: 2; column-gap: 0.7rem; }
+    .gallery-item { margin-bottom: 0.7rem; border-radius: 6px; }
+    .gallery-item .video-overlay::after { font-size: 2.2rem; }
+    .lightbox { padding: 0.5rem; }
+    .lightbox-content iframe { width: 95vw; height: 54vw; }
+    .lightbox-close { top: 0.8rem; right: 1.2rem; font-size: 2rem; }
+  }
+  @media (max-width: 420px) {
+    .gallery { column-count: 1; max-width: 380px; margin: 0 auto; }
+  }
+</style>
 </head>
 <body>
-    <div class="container">
-        
-        <!-- INTRO -->
-        <div class="intro">
-            <p>Hi there, welcome to my page.</p>
-            <p>I use this to showcase some of my past installations and projects I am working on. I'm interested in creating art that questions the current state of the world and the underlying systems that support this, with a focus on inspiring courage and change. I like to do this by adding interactive elements to my work.</p>
-            <p>This page is new and under construction – feel free to have a look or contact me at xara.beitinger@protonmail.com - Xara </p>
-        </div>
-        
-        <!-- GALLERY -->
-        <div class="gallery" id="gallery"></div>
-        
-    </div>
-    
-    <!-- LIGHTBOX -->
-    <div class="lightbox" id="lightbox">
-        <button class="lightbox-close" id="lightboxClose">✕</button>
-        <div class="lightbox-content" id="lightboxContent">
-            <!-- dynamic content -->
-        </div>
-    </div>
-    
-    <script>
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  GALLERY DATA — edit this array to add/remove items
-        //  For images:   { type: 'image', url: 'https://...', title: 'optional' }
-        //  For videos:   { type: 'video', url: 'VIDEO_ID', title: 'optional' }
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        
-        const galleryItems = [
 
-            // ── YouTube Videos ──
-            { type: 'video', url: '_QbfjNIJqrU', title: 'Video · Vandalism in Germany' },
-            { type: 'video', url: 'gsBKquVRgN4', title: 'Video · Surveillance Doll' },
-            { type: 'video', url: 'bRo_bRXZxkQ', title: 'Video · Conditional Entry' },
-            // ── Images ──
-            { type: 'image', url: 'bilder/bild1.jpg', title: 'Photogram · 1' },
-            { type: 'image', url: 'bilder/bild2.jpg', title: 'Photogram · 2' },
-            { type: 'image', url: 'bilder/bild6.jpg', title: 'Photogram · 6' },
-            { type: 'image', url: 'bilder/bild7.jpg', title: 'Photogram · 5' },
-            { type: 'image', url: 'bilder/bild8.jpg', title: 'Photogram · 7' },
-            { type: 'image', url: 'bilder/bild9.jpg', title: 'Photogram · 3' },
-            { type: 'image', url: 'bilder/bild10.jpg', title: 'Photogram · 4' },
-            { type: 'image', url: 'bilder/bild11.jpg', title: 'Photogram · 8' },
-            { type: 'image', url: 'bilder/bild12.jpg', title: 'Infrared · Houseshoes' },
-            { type: 'image', url: 'bilder/bild13.jpg', title: 'Infrared · White Goods' },
-            { type: 'image', url: 'bilder/bild14.jpg', title: 'Kiosk · Conditional Entry' },
-            { type: 'image', url: 'bilder/bild15.jpg', title: 'Testing · Conditional Entry' },
-            { type: 'image', url: 'bilder/bild16.jpg', title: 'Receipt · Conditional Entry' },
-            
-        ];
-        
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  RENDER GALLERY
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        
-        const galleryEl = document.getElementById('gallery');
-        const lightboxEl = document.getElementById('lightbox');
-        const lightboxContent = document.getElementById('lightboxContent');
-        const lightboxClose = document.getElementById('lightboxClose');
-        
-        // Build HTML
-        galleryItems.forEach((item, index) => {
-            const div = document.createElement('div');
-            div.className = 'gallery-item';
-            div.dataset.index = index;
-            
-            if (item.type === 'image') {
-                const img = document.createElement('img');
-                img.src = item.url;
-                img.alt = item.title || 'Gallery image';
-                img.loading = 'lazy';
-                div.appendChild(img);
-            } else if (item.type === 'video') {
-                const wrapper = document.createElement('div');
-                wrapper.className = 'video-overlay';
-                const img = document.createElement('img');
-                img.src = `https://img.youtube.com/vi/${item.url}/hqdefault.jpg`;
-                img.alt = item.title || 'Video thumbnail';
-                img.loading = 'lazy';
-                wrapper.appendChild(img);
-                div.appendChild(wrapper);
-            }
-            
-            // optional title overlay
-            if (item.title) {
-                const caption = document.createElement('div');
-                caption.className = 'item-title';
-                caption.textContent = item.title;
-                div.appendChild(caption);
-            }
-            
-            // click → open lightbox
-            div.addEventListener('click', () => openLightbox(index));
-            galleryEl.appendChild(div);
-        });
-        
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  LIGHTBOX
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        
-        function openLightbox(index) {
-            const item = galleryItems[index];
-            if (!item) return;
-            
-            // clear previous
-            lightboxContent.innerHTML = '';
-            
-            if (item.type === 'image') {
-                const img = document.createElement('img');
-                img.src = item.url;
-                img.alt = item.title || 'Image';
-                lightboxContent.appendChild(img);
-            } else if (item.type === 'video') {
-                const iframe = document.createElement('iframe');
-                // YouTube embed with autoplay & modest branding
-                iframe.src = `https://www.youtube.com/embed/${item.url}?autoplay=1&rel=0&modestbranding=1`;
-                iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-                iframe.allowFullscreen = true;
-                lightboxContent.appendChild(iframe);
-            }
-            
-            // optional caption
-            if (item.title) {
-                const cap = document.createElement('div');
-                cap.className = 'lightbox-caption';
-                cap.textContent = item.title;
-                lightboxContent.appendChild(cap);
-            }
-            
-            lightboxEl.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-        
-        function closeLightbox() {
-            lightboxEl.classList.remove('active');
-            document.body.style.overflow = '';
-            // stop any video
-            const iframe = lightboxContent.querySelector('iframe');
-            if (iframe) {
-                iframe.src = ''; // unload
-            }
-            lightboxContent.innerHTML = '';
-        }
-        
-        // close events
-        lightboxClose.addEventListener('click', closeLightbox);
-        lightboxEl.addEventListener('click', (e) => {
-            if (e.target === lightboxEl) closeLightbox();
-        });
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeLightbox();
-        });
-        
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        //  RESPONSIVE MASONRY FIX (for variable heights)
-        //  The CSS column-count does the heavy lifting.
-        //  This ensures items break cleanly.
-        // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        
-        // No extra JS needed — CSS columns handle it beautifully.
-        // The only "gotcha" is that columns flow top-to-bottom,
-        // but that's the standard Pinterest look.
-        
-        console.log('✨ Xara’s gallery loaded — enjoy!');
-    </script>
+<div class="container" id="app"></div>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose">✕</button>
+  <div class="lightbox-content" id="lightboxContent"></div>
+</div>
+
+<script>
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  PROJECT DATA
+//  Replace `cover` and items with your real files when ready.
+//  For images: { type: 'image', url: 'bilder/xxx.jpg', title: '...' }
+//  For videos: { type: 'video', url: 'YOUTUBE_ID',    title: '...' }
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+const projects = [
+  {
+    name: 'Ai-doll',
+    slug: 'ai-doll',
+    year: '2024',
+    medium: 'Installation · Video · Interactive object',
+    cover: 'https://placehold.co/800x800/2a2a2a/ffffff?text=Ai-doll',
+    description: [
+      'Placeholder description for Ai-doll. Replace this with a short text about the work, its themes and how it was shown.'
+    ],
+    items: [
+      { type: 'video', url: 'gsBKquVRgN4', title: 'Surveillance Doll' }
+    ]
+  },
+  {
+    name: 'Conditional Entry',
+    slug: 'conditional-entry',
+    year: '2023',
+    medium: 'Installation · Video · Kiosk',
+    cover: 'https://placehold.co/800x800/2a2a2a/ffffff?text=Conditional+Entry',
+    description: [
+      'Placeholder description for Conditional Entry. Replace with your own text.'
+    ],
+    items: [
+      { type: 'video', url: 'bRo_bRXZxkQ', title: 'Conditional Entry' },
+      { type: 'image', url: 'bilder/bild14.jpg', title: 'Kiosk · Conditional Entry' },
+      { type: 'image', url: 'bilder/bild15.jpg', title: 'Testing · Conditional Entry' },
+      { type: 'image', url: 'bilder/bild16.jpg', title: 'Receipt · Conditional Entry' }
+    ]
+  },
+  {
+    name: 'Gedanken zum Vandalismus',
+    slug: 'gedanken-zum-vandalismus',
+    year: '2023',
+    medium: 'Video · Research',
+    cover: 'https://placehold.co/800x800/2a2a2a/ffffff?text=Gedanken+zum+Vandalismus',
+    description: [
+      'Placeholder description for Gedanken zum Vandalismus. Replace with your own text.'
+    ],
+    items: [
+      { type: 'video', url: '_QbfjNIJqrU', title: 'Vandalism in Germany' }
+    ]
+  },
+  {
+    name: 'Photography',
+    slug: 'photography',
+    year: '2022 — ongoing',
+    medium: 'Photogram · Infrared · Analogue',
+    cover: 'https://placehold.co/800x800/2a2a2a/ffffff?text=Photography',
+    description: [
+      'Placeholder description for the Photography project. Replace with your own text.'
+    ],
+    items: [
+      { type: 'image', url: 'bilder/bild1.jpg',  title: 'Photogram · 1' },
+      { type: 'image', url: 'bilder/bild2.jpg',  title: 'Photogram · 2' },
+      { type: 'image', url: 'bilder/bild9.jpg',  title: 'Photogram · 3' },
+      { type: 'image', url: 'bilder/bild10.jpg', title: 'Photogram · 4' },
+      { type: 'image', url: 'bilder/bild7.jpg',  title: 'Photogram · 5' },
+      { type: 'image', url: 'bilder/bild6.jpg',  title: 'Photogram · 6' },
+      { type: 'image', url: 'bilder/bild8.jpg',  title: 'Photogram · 7' },
+      { type: 'image', url: 'bilder/bild11.jpg', title: 'Photogram · 8' },
+      { type: 'image', url: 'bilder/bild12.jpg', title: 'Infrared · Houseshoes' },
+      { type: 'image', url: 'bilder/bild13.jpg', title: 'Infrared · White Goods' }
+    ]
+  },
+  {
+    name: 'Gnome',
+    slug: 'gnome',
+    year: '2024',
+    medium: 'Sculpture · Interactive',
+    cover: 'https://placehold.co/800x800/2a2a2a/ffffff?text=Gnome',
+    description: [
+      'Placeholder description for Gnome. Replace with your own text.'
+    ],
+    items: []
+  }
+];
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  HELPERS
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+const app = document.getElementById('app');
+const lightboxEl = document.getElementById('lightbox');
+const lightboxContent = document.getElementById('lightboxContent');
+const lightboxClose = document.getElementById('lightboxClose');
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[c]));
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  RENDER: HOME
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+function renderHome() {
+  const cards = projects.map(p => `
+    <a class="project-card" href="#${p.slug}">
+      <img src="${escapeHtml(p.cover)}" alt="${escapeHtml(p.name)}" loading="lazy" />
+      <div class="card-label">${escapeHtml(p.name)}</div>
+    </a>
+  `).join('');
+
+  app.innerHTML = `
+    <div class="intro">
+      <p>Hi there, welcome to my page.</p>
+      <p>I use this to showcase some of my past installations and projects I am working on. I'm interested in creating art that questions the current state of the world and the underlying systems that support this, with a focus on inspiring courage and change. I like to do this by adding interactive elements to my work.</p>
+      <p>This page is new and under construction – feel free to have a look or contact me at xara.beitinger@protonmail.com - Xara</p>
+    </div>
+    <div class="project-grid">${cards}</div>
+  `;
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  RENDER: PROJECT PAGE
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+function renderProject(project) {
+  const desc = project.description.map(p => `<p>${escapeHtml(p)}</p>`).join('');
+
+  const sorted = [
+    ...project.items.filter(i => i.type === 'video'),
+    ...project.items.filter(i => i.type === 'image')
+  ];
+
+  const itemsHtml = sorted.map((item, idx) => {
+    if (item.type === 'image') {
+      return `
+        <div class="gallery-item" data-index="${idx}">
+          <img src="${escapeHtml(item.url)}" alt="${escapeHtml(item.title || '')}" loading="lazy" />
+          ${item.title ? `<div class="item-title">${escapeHtml(item.title)}</div>` : ''}
+        </div>`;
+    } else {
+      const thumb = `https://img.youtube.com/vi/${escapeHtml(item.url)}/hqdefault.jpg`;
+      return `
+        <div class="gallery-item" data-index="${idx}">
+          <div class="video-overlay">
+            <img src="${thumb}" alt="${escapeHtml(item.title || 'Video')}" loading="lazy" />
+          </div>
+          ${item.title ? `<div class="item-title">${escapeHtml(item.title)}</div>` : ''}
+        </div>`;
+    }
+  }).join('');
+
+  app.innerHTML = `
+    <a class="back-link" href="#">← back</a>
+    <div class="project-header">
+      <h1>${escapeHtml(project.name)}</h1>
+      <div class="project-meta">${escapeHtml(project.year)} · ${escapeHtml(project.medium)}</div>
+      <div class="project-description">${desc}</div>
+    </div>
+    <div class="gallery" id="gallery">${itemsHtml}</div>
+  `;
+
+  app.querySelectorAll('.gallery-item').forEach(el => {
+    el.addEventListener('click', () => openLightbox(sorted[+el.dataset.index]));
+  });
+}
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  LIGHTBOX
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+function openLightbox(item) {
+  if (!item) return;
+  lightboxContent.innerHTML = '';
+
+  if (item.type === 'image') {
+    const img = document.createElement('img');
+    img.src = item.url;
+    img.alt = item.title || 'Image';
+    lightboxContent.appendChild(img);
+  } else if (item.type === 'video') {
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://www.youtube.com/embed/${item.url}?autoplay=1&rel=0&modestbranding=1`;
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen = true;
+    lightboxContent.appendChild(iframe);
+  }
+
+  if (item.title) {
+    const cap = document.createElement('div');
+    cap.className = 'lightbox-caption';
+    cap.textContent = item.title;
+    lightboxContent.appendChild(cap);
+  }
+
+  lightboxEl.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  lightboxEl.classList.remove('active');
+  document.body.style.overflow = '';
+  const iframe = lightboxContent.querySelector('iframe');
+  if (iframe) iframe.src = '';
+  lightboxContent.innerHTML = '';
+}
+
+lightboxClose.addEventListener('click', closeLightbox);
+lightboxEl.addEventListener('click', e => { if (e.target === lightboxEl) closeLightbox(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  ROUTER
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+function route() {
+  closeLightbox();
+  const hash = window.location.hash.replace(/^#/, '');
+
+  if (!hash) {
+    renderHome();
+    return;
+  }
+
+  const project = projects.find(p => p.slug === hash);
+  if (project) {
+    renderProject(project);
+    window.scrollTo(0, 0);
+  } else {
+    renderHome();
+  }
+}
+
+window.addEventListener('hashchange', route);
+route();
+
+console.log('✨ Xara\'s project site loaded');
+</script>
 </body>
 </html>
